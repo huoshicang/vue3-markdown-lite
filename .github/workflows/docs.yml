@@ -9,26 +9,28 @@ jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
     steps:
-      # 1️⃣ 拉取仓库
       - name: Checkout Repository
         uses: actions/checkout@v3
-
-      # 2️⃣ 安装 Node.js
+        with:
+          persist-credentials: false
+        
+      - name: Install pnpm
+        uses: pnpm/action-setup@v2
+        with:
+          version: 8.x
+        
       - name: Setup Node.js
         uses: actions/setup-node@v3
         with:
           node-version: 22
-          cache: 'npm'
-
-      # 3️⃣ 安装依赖
+          cache: pnpm
+          registry-url: https://registry.npmjs.org/
+        
       - name: Install Dependencies
         run: npm install
-
-      # 4️⃣ 构建 VitePress 文档
       - name: Build Docs
         run: npm run docs:build
 
-      # 5️⃣ 部署到 GitHub Pages
       - name: Deploy to GitHub Pages
         uses: JamesIves/github-pages-deploy-action@v4.2.2
         with:
