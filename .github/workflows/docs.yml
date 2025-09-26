@@ -5,34 +5,33 @@ on:
     branches:
       - main  # 主分支推送时触发
 
+env:
+  NODE_VERSION: lts/*
+
 jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout Repository
+      - name: Checkout
         uses: actions/checkout@v3
         with:
           persist-credentials: false
-        
       - name: Install pnpm
         uses: pnpm/action-setup@v2
         with:
           version: 8.x
-        
-      - name: Setup Node.js
+      - name: Set node version to LTS
         uses: actions/setup-node@v3
         with:
-          node-version: 22
-          cache: pnpm
+          node-version: ${{ env.NODE_VERSION }}
           registry-url: https://registry.npmjs.org/
-        
-      - name: Install Dependencies
-        run: npm install
-      - name: Build Docs
-        run: npm run docs:build
-
-      - name: Deploy to GitHub Pages
+          cache: pnpm
+      - name: Install and Build
+        run: |
+          pnpm install
+          pnpm docs:build
+      - name: Deploy
         uses: JamesIves/github-pages-deploy-action@v4.2.2
         with:
-          folder: docs/.vitepress/dist
           branch: gh-pages
+          folder: ./.docs/.vitepress/dist
