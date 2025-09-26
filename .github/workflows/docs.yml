@@ -17,12 +17,9 @@ jobs:
         with:
           node-version: 22
           cache: 'npm'
-
-      - name: Install pnpm
-        run: npm install -g pnpm
-
-      - name: Install Dependencies
-        run: npm install --frozen-lockfile
+          
+      - name: Install
+        run: npm install
 
       - name: Build Docs
         run: npm docs:build
