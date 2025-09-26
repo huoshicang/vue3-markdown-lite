@@ -27,11 +27,15 @@ const props = defineProps({
     type: String,
     default: "",
   },
-  
   // 是否为纯文本
   isText: {
     type: Boolean,
     default: false,
+  },
+  // 是否复制代码
+  copyCoder: {
+    type: Boolean,
+    default: true,
   },
 });
 
@@ -100,7 +104,7 @@ const text = computed(() => {
 * 添加复制事件
 * */
 const addCopyEvents = () => {
-  if (textRef.value) {
+  if (textRef.value && props.copyCoder) {
     const copyBtn = textRef.value.querySelectorAll(".code-block-header__copy");
     copyBtn.forEach((btn) => {
       btn.addEventListener("click", () => {

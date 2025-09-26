@@ -3,4 +3,4 @@
 ## 安装
 
 ```bash
-pnpm add vue3-markdown-lite
+npm i vue3-markdown-lite
