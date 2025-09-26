@@ -15,17 +15,17 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v3
         with:
-          node-version: 18
-          cache: 'pnpm'
+          node-version: 22
+          cache: 'npm'
 
       - name: Install pnpm
         run: npm install -g pnpm
 
       - name: Install Dependencies
-        run: pnpm install --frozen-lockfile
+        run: npm install --frozen-lockfile
 
       - name: Build Docs
-        run: pnpm docs:build
+        run: npm docs:build
 
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v3
