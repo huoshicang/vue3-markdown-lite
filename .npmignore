@@ -1,0 +1,5 @@
+node_modules
+example
+docs
+vite.config.ts
+tsconfig.json
