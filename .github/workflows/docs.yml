@@ -1,31 +1,38 @@
-name: Deploy Docs
+name: Deploy VitePress Docs
 
 on:
   push:
     branches:
-      - main  # 只要 main 分支有推送就触发
+      - main  # 主分支推送时触发
 
 jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
     steps:
+      # 1️⃣ 拉取仓库
       - name: Checkout Repository
         uses: actions/checkout@v3
 
+      # 2️⃣ 安装 Node.js
       - name: Setup Node.js
         uses: actions/setup-node@v3
         with:
           node-version: 22
           cache: 'npm'
-          
-      - name: Install
+
+      # 3️⃣ 安装依赖
+      - name: Install Dependencies
         run: npm install
 
+      # 4️⃣ 构建 VitePress 文档
       - name: Build Docs
         run: npm run docs:build
 
+      # 5️⃣ 部署到 GitHub Pages
       - name: Deploy to GitHub Pages
-        uses: JamesIves/github-pages-deploy-action@v4.2.2
+        uses: peaceiris/actions-gh-pages@v3
         with:
-          folder: docs/.vitepress/dist
-          branch: gh-pages
+          github_token: ${{ secrets.GH_PAT }}
+          publish_dir: docs/.vitepress/dist
+          publish_branch: gh-pages
+          commit_message: "Auto deploy docs [skip ci]"
