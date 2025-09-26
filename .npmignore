@@ -1,5 +1,7 @@
 node_modules
 example
 docs
+cache
 vite.config.ts
 tsconfig.json
+
