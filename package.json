@@ -11,7 +11,7 @@
     "build": "cross-env BUILD_LIB=true vite build",
     "preview": "vite preview",
     "docs:dev": "vitepress dev docs",
-    "docs:build": "vitepress build docs",
+    "docs:build": "cross-env VITE_MY_ENV=production vitepress build docs",
     "docs:preview": "vitepress preview docs",
     "publish:npm": "npm publish --access public",
     "release": "npm run build && npm run publish:npm"

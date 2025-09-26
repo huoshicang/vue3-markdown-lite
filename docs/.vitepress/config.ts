@@ -1,11 +1,11 @@
 import { defineConfig } from "vitepress";
 
-const isProd = process.env.DEPLOY_ENV === 'GH_PAGES'
+const isProd = process.env.VITE_MY_ENV
 
 export default defineConfig({
     title: "Vue3 Markdown Lite",
     description: "轻量级 Vue3 Markdown 展示组件",
-    base: '/vue3-markdown-lite/',
+    base: isProd ? '/vue3-markdown-lite/' : '/',
     themeConfig: {
         nav: [
             { text: "指南", link: "/guide/" },
