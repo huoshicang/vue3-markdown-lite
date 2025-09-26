@@ -30,9 +30,7 @@ jobs:
 
       # 5️⃣ 部署到 GitHub Pages
       - name: Deploy to GitHub Pages
-        uses: peaceiris/actions-gh-pages@v3
+        uses: JamesIves/github-pages-deploy-action@v4.2.2
         with:
-          github_token: ${{ secrets.GH_PAT }}
-          publish_dir: docs/.vitepress/dist
-          publish_branch: gh-pages
-          commit_message: "Auto deploy docs [skip ci]"
+          folder: docs/.vitepress/dist
+          branch: gh-pages
