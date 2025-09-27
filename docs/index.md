@@ -4,21 +4,31 @@ hero:
   name: Vue3 Markdown Lite
   tagline: 适合在 Vue3 项目中快速集成 Markdown 渲染。
   image:
-    src: /brand.svg
+    src: /markdown.svg
   actions:
     - theme: brand
       text: 快速入手
       link: /guide
+    - theme: alt
+      text: GitHub
+      link: https://github.com/huoshicang/vue3-markdown-lite
 features:
   - icon: ⚡
     title: 简单
-    details: 开箱即用，只需要简单配置，就可以马上使用。
-  - icon: 🛠️
-    title: 全面
-    details: 集成组件库、TailwindCSS、SVG图标等默认解决方案，应有尽有！
-  - icon: ✊
-    title: 强大
-    link: https://github.com/shoppingzh/press-util
-    linkText: 更多
-    details: 自动生成导航栏与侧边栏，你的烦恼即是我的烦恼。
+    details: 开箱即用，只需要简单配置，就可以马上使用。 
+  - icon: 💻
+    title: Vue 3 + TypeScript 构建
+    details: 基于现代前端技术栈开发，确保组件的可靠性、可维护性与类型安全。
+  - icon: 📝
+    title: 丰富内容渲染
+    details: 全面支持代码高亮、Katex 数学公式解析及 Mermaid 图表渲染，满足多样化文档需求。
+  - icon: 📋
+    title: 便捷交互体验
+    details: 内置代码块复制功能，提升用户阅读与使用效率。
+  - icon: 📱
+    title: 响应式布局适配
+    details: 自动适配不同尺寸设备屏幕，保证在桌面端与移动端均有良好展示效果。
+  - icon: 🔌
+    title: 双向绑定
+    details: 支持 v-model 双向绑定
 ---

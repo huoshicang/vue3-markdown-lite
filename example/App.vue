@@ -150,8 +150,8 @@ function test() {
 
 var testBox = box();
 testBox.add("jQuery").remove("jQuery");
-\`\`\`
 
+\`\`\`
 #### HTML 代码 HTML codes
 
 \`\`\`html
@@ -377,5 +377,15 @@ Andrew->>China: I am good thanks!
 \`\`\`
 
 ### End
+
+
+$$
+\\begin{align}
+f(x) &= ax^2 + bx + c \\\\
+f'(x) &= 2ax + b \\\\
+f''(x) &= 2a
+\\end{align}
+$$
+
 `)
 </script>
