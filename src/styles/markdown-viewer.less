@@ -1,0 +1,77 @@
+.code-block-wrapper {
+  position: relative;
+  margin: 1rem 0;
+  border-radius: 8px;
+  overflow: hidden;
+  border: 1px solid #e1e4e8;
+}
+
+.code-block-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 8px 12px;
+  background: #f6f8fa;
+  border-bottom: 1px solid #e1e4e8;
+  font-size: 12px;
+  color: #6a737d;
+}
+
+.code-block-header__fold,
+.code-block-header__copy {
+  cursor: pointer;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  margin-right: 10px;
+}
+
+.code-block-header__fold:hover,
+.code-block-header__copy:hover {
+  color: #0366d6;
+}
+
+.code-block-wrapper:hover .code-block-header__fold,
+.code-block-wrapper:hover .code-block-header__copy {
+  opacity: 1;
+}
+
+.code-block-content {
+  display: flex;
+  overflow-x: auto;
+  background: #f6f8fa;
+}
+
+.line-numbers {
+  padding: 12px;
+  text-align: right;
+  user-select: none;
+  color: #6a737d;
+  background: #f6f8fa;
+  border-right: 1px solid #e1e4e8;
+  line-height: 1.5;
+  min-width: 10px;
+}
+
+.line-number {
+  display: block;
+  font-size: 12px;
+}
+
+.code-block-body {
+  flex: 1;
+  padding: 20px !important;
+  overflow-x: auto;
+  margin: 0;
+  line-height: 1.5;
+  background: #f6f8fa;
+}
+
+.code-line {
+  display: block;
+  white-space: pre;
+}
+
+/* 高亮样式调整 */
+.hljs {
+  background: transparent !important;
+}
