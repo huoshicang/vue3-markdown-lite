@@ -2,7 +2,7 @@
 <MarkdownViewer :text="text" />
 </template>
 <script setup lang="ts">
-import MarkdownViewer from "@/MarkdownViewer.vue";
+import MarkdownViewer from "../../../src/MarkdownViewer.vue";
 import {ref} from "vue";
 
 const text = ref(`
