@@ -28,6 +28,7 @@
   "author": "离无歌",
   "license": "MIT",
   "dependencies": {
+    "@shikijs/langs": "^3.13.0",
     "@vscode/markdown-it-katex": "^1.1.2",
     "cross-env": "^10.0.0",
     "highlight.js": "^11.10.0",

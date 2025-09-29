@@ -5,7 +5,7 @@
 #### 1. 安装依赖
 
 ```bash
-npm install vue markdown-it @vscode/markdown-it-katex markdown-it-link-attributes highlight.js mermaid-it-markdown katex
+npm install vue3-markdown-lite
 ```
 
 #### 2. 全局注册（推荐）
@@ -16,7 +16,7 @@ npm install vue markdown-it @vscode/markdown-it-katex markdown-it-link-attribute
 // .vitepress/theme/index.ts 或 main.ts
 import { createApp } from 'vue'
 import App from './App.vue'
-import MarkdownViewer from '@/path-to-component' // 替换为实际组件路径
+import MarkdownViewer from 'vue3-markdown-lite' // 替换为实际组件路径
 
 const app = createApp(App)
 app.use(MarkdownViewer) // 全局注册
@@ -33,7 +33,7 @@ app.mount('#app')
 </template>
 
 <script setup>
-import { MarkdownViewer } from '@/path-to-component'
+import { MarkdownViewer } from 'vue3-markdown-lite'
 </script>
 ```
 
@@ -76,8 +76,6 @@ console.log(greeting('Markdown'));
     :copyCoder="true"  // 启用复制
     :coderNumber="true" // 显示行号
     :collapse="true" // 允许折叠
-    highlightTheme="atom-one-dark" // 深色主题
-    :wrapCode="false" // 不自动换行
   />
 </template>
 ```
@@ -98,18 +96,6 @@ print('无交互功能的代码块')
 ```
 
 ### 主题与布局
-
-#### 暗黑模式设置
-
-```vue
-<template>
-  <MarkdownViewer 
-    text="## 暗黑模式示例\n这是暗黑模式下的文本" 
-    :darkMode="true"  // 强制暗黑模式
-  />
-</template>
-```
-
 #### 响应式布局适配
 
 组件会自动适配移动端与桌面端，无需额外配置：

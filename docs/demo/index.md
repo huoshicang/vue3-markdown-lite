@@ -1,15 +1,12 @@
 # 演示
 
-```typescript
-import { createApp } from "vue";
-import App from "./App.vue";
+<script setup>
+import DemoButton from './components/DemoButton.vue'
+// 2. 导入组件源码（?raw 后缀获取原始文本）
+import DemoButtonSource from './components/DemoButton.vue?raw'
+</script>
 
-import Vue3MarkdownLite from "vue3-markdown-lite";
-
-const app = createApp(App);
-app.use(Vue3MarkdownLite);
-app.mount("#app");
-```
+<DemoButton />
 
 ```html
 <template>
