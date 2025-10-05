@@ -1,5 +1,6 @@
 import { defineConfig } from "vite";
 import vue from "@vitejs/plugin-vue";
+import vueJsx from '@vitejs/plugin-vue-jsx'
 import dts from "vite-plugin-dts";
 import path from "path";
 import { fileURLToPath } from "url";
@@ -13,6 +14,7 @@ export default defineConfig({
   root: isLib ? "." : "example",
   plugins: [
     vue(),
+    vueJsx(),
     ...(isLib ? [dts({
       insertTypesEntry: true,
       tsconfigPath: "./tsconfig.json"

@@ -1,5 +1,8 @@
 {
   "compilerOptions": {
+    "jsxImportSource": "vue", // 指定 JSX 导入源为 Vue
+    "types": ["vite/client", "vue","node"], // 确保 Vue 类型被识别
+    "include": ["src/**/*.ts", "src/**/*.d.ts", "src/**/*.tsx", "src/**/*.vue"], // 包含 TSX 文件
     "target": "ESNext",
     "module": "ESNext",
     "moduleResolution": "Node",
@@ -10,7 +13,6 @@
     "skipLibCheck": true,
     "isolatedModules": true,
     "lib": ["ESNext", "DOM"],
-    "types": ["node"],
     "baseUrl": ".",
     "paths": {
       "@/*": ["src/*"]

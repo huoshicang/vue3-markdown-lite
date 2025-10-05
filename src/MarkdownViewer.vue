@@ -1,63 +1,62 @@
 <template>
-  <div class="text-black" :class="wrapClass">
-    <div ref="textRef" class="leading-relaxed break-words">
-      <div>
-        <div v-if="!isText" class="markdown-body" v-html="renderedText"/>
-        <div v-else class="whitespace-pre-wrap" v-text="text"/>
-      </div>
-    </div>
-  </div>
+  <div ref="textRef" v-if="!isText" :class="['markdown-body']" v-html="renderedText"/>
+  <div v-else v-text="text"/>
 </template>
 
 <script lang="ts" setup>
-import {computed, ref} from "vue";
-import {useBasicLayout} from "@/utils/useBasicLayout.ts";
-import {useCodeBlock} from "./composables/useCodeBlock.ts";
-import {renderMarkdown} from "@/utils/markdown-renderer.ts";
+import {computed, ref, watch} from "vue";
 import {escapeDollarNumber, escapeBrackets} from "@/utils/markdown-utils.ts";
 
 import type {MarkdownViewerProps} from "./types";
+import {createMarkdownIt} from "@/utils/markdown-it-config";
+import {useCodeBlock} from "@/composables/useCodeBlock";
+
+const textRef=ref()
+
+
+
 
 // 基于类型定义声明 props，自动获得类型提示
 const props = withDefaults(defineProps<MarkdownViewerProps>(), {
-  text: "",
-  isText: false,
-  copyCoder: true,
-  coderNumber: true,
-  collapse: true,
-  highlightTheme: "github",
-  wrapCode: false,
-  darkMode: undefined, // 保持默认跟随系统
+  text: () => "",
+  isText: () => false,
+  copyCoder: () => true,
+  collapse: () => true,
+  colorScheme: () => "light"
 });
 
-const {isMobile} = useBasicLayout();
-const textRef = ref<HTMLElement>();
-
-// 代码块事件处理
-useCodeBlock(textRef, props);
-
-// 计算类名
-const wrapClass = computed(() => [
-  "text-wrap",
-  "min-w-[20px]",
-  "rounded-md",
-  isMobile.value ? "p-2" : "px-3 py-2",
-]);
+useCodeBlock(textRef, {
+  collapse: props.collapse,
+  copyCoder: props.copyCoder,
+})
 
 // 渲染后的文本
 const renderedText = computed(() => {
   const value = props.text ?? "";
   if (!props.isText) {
     const escapedText = escapeBrackets(escapeDollarNumber(value));
-    return renderMarkdown(escapedText, props);
+    return createMarkdownIt({
+      copyCoder: props.copyCoder,
+      collapse: props.collapse,
+    }).render(escapedText)
   }
   return value;
 });
 
+watch(
+  () => props.colorScheme,
+  (newMode) => document.documentElement.setAttribute("markdown-lite", newMode),
+  { immediate: true }
+);
 
 </script>
 
 <style lang="less">
-@import url(../assets/style);
-@import url(./styles/markdown-viewer.less);
+.markdown-body *{
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+
 </style>

@@ -20,7 +20,7 @@ export function escapeDollarNumber(text: string): string {
  * 处理公式括号转义（转换为$符号包裹）
  */
 export function escapeBrackets(text: string): string {
-  const pattern = /(```[\s\S]*?```|`.*?`)|\\\[([\s\S]*?[^\\])\\\]|\\\((.*?)\\\)/g;
+  const pattern = /(```[\s\S]*?```|`.*?`)|\\\[([\s\S]*?[^\\])\\]|\\\((.*?)\\\)/g;
 
   return text.replace(
     pattern,

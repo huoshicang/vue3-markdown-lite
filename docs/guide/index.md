@@ -74,7 +74,6 @@ function greeting(name) {
 console.log(greeting('Markdown'));
 ```"
     :copyCoder="true"  // 启用复制
-    :coderNumber="true" // 显示行号
     :collapse="true" // 允许折叠
   />
 </template>
@@ -90,7 +89,6 @@ print('无交互功能的代码块')
 ```"
     :copyCoder="false"
     :collapse="false"
-    :coderNumber="false"
   />
 </template>
 ```

@@ -68,7 +68,6 @@ function greet() {
 | text      | string  | ""     | 需要渲染的 Markdown 文本 |
 | isText    | boolean | false  | 是否作为纯文本渲染         |
 | copyCoder | boolean | true   | 是否启用代码块复制功能       |
-| coderNumber | boolean | true   | 是否显示行号            |
 | collapse | boolean | true   | 是否启用折叠            |
 
 ## 支持的语法

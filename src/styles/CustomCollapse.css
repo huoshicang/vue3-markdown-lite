@@ -1,0 +1,39 @@
+
+.code-wrapper {
+  position: relative;
+  border-radius: 6px;
+  overflow: hidden;
+}
+
+.code-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px;
+
+}
+
+.language-tag {
+  font-weight: 600;
+}
+
+.copy-button,
+.fold-button {
+  border: none;
+  padding: 4px 12px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 12px;
+  transition: background 0.3s;
+}
+
+.code-block {
+  padding: 10px;
+  overflow: hidden;
+
+}
+
+/* 折叠状态样式 */
+.code-block.folded {
+  display: none;
+}

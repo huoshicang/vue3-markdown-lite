@@ -34,13 +34,6 @@ export interface MarkdownViewerProps {
   collapse?: boolean;
 
   /**
-   * 代码高亮主题（支持 highlight.js 内置主题）
-   * 可选值：'atom-one-dark' | 'atom-one-light' | 'github' | 'monokai' 等
-   * @default 'github'
-   */
-  highlightTheme?: string;
-
-  /**
    * 代码块是否自动换行
    * @default false
    */
@@ -51,5 +44,5 @@ export interface MarkdownViewerProps {
    * 为 undefined 时自动跟随系统主题
    * @default undefined
    */
-  darkMode?: boolean;
+  colorScheme?: 'dark' | 'light';
 }
