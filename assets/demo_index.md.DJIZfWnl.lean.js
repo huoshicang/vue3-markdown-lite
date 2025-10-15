@@ -1,0 +1,1 @@
+import{_ as i,c as a,o as t,ae as n}from"./chunks/framework.DVxWJi2S.js";const g=JSON.parse('{"title":"演示","description":"","frontmatter":{},"headers":[],"relativePath":"demo/index.md","filePath":"demo/index.md"}'),h={name:"demo/index.md"};function l(k,s,p,e,E,r){return t(),a("div",null,[...s[0]||(s[0]=[n("",2)])])}const o=i(h,[["render",l]]);export{g as __pageData,o as default};
