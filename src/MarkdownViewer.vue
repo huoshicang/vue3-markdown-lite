@@ -1,40 +1,36 @@
 <template>
-  <div class="markdown-container">
-    <div ref="textRef" v-if="!isText" :class="['markdown-body']" v-html="renderedText" v-watermark="watermarkOptions"/>
-    <div v-else v-text="text"/>
-  </div>
+  <div ref="textRef" :class="['markdown-body']" v-html="renderedText" v-watermark="watermarkOptions"/>
 </template>
 
 <script lang="ts" setup>
-import {computed, ref, watch, defineProps, onMounted, createApp} from "vue";
-import {escapeDollarNumber, escapeBrackets} from "@/utils/markdown-utils.ts";
-import ImageViewer from './components/ImageViewer.vue';
-import type {MarkdownViewerProps} from "./types";
+import {computed, watch, defineProps, nextTick, ref, onMounted, onUnmounted} from "vue";
+import {MarkdownViewerProps} from "@/types";
 import {createMarkdownIt} from "@/utils/markdown-it-config";
-import {useCodeBlock} from "@/composables/useCodeBlock";
-import watermark from './directives/watermark';
-import {exportToPDF} from "@/utils/export-utils";
+import {exportToPDF} from "@/utils/export-PDF";
+import watermark from '@/utils/watermark';
+import {useECharts} from "@/template/useECharts";
+import {useTyped} from "@/template/useTyped";
+
+defineOptions({name: 'MarkdownViewer'})
 
 // 注册水印指令
 const vWatermark = watermark;
 const textRef = ref<HTMLElement | undefined>();
 
+// 使用 ECharts 可组合函数
+const { initECharts, disposeECharts } = useECharts(textRef);
+
+// 使用 Typed 可组合函数
+const { initTyped, disposeTyped } = useTyped(textRef);
 
 // 基于类型定义声明 props，自动获得类型提示
 const props = withDefaults(defineProps<MarkdownViewerProps>(), {
   text: () => "",
-  isText: () => false,
+  colorScheme: () => "light",
+  watermark: () => ({text: 'Markdown Lite'}),
   copyCoder: () => true,
   collapse: () => true,
-  colorScheme: () => "light",
-  watermark: () => ({text: ''})
 });
-
-// 代码块事件处理
-useCodeBlock(textRef, {
-  collapse: props.collapse,
-  copyCoder: props.copyCoder,
-})
 
 
 // 水印配置
@@ -42,90 +38,63 @@ const watermarkOptions = computed(() => {
   return {...props.watermark} || {};
 });
 
+
 // 渲染后的文本
 const renderedText = computed(() => {
-  const value = props.text ?? "";
-  if (!props.isText) {
-    const escapedText = escapeBrackets(escapeDollarNumber(value));
-    return createMarkdownIt({
-      copyCoder: props.copyCoder,
-      collapse: props.collapse,
-    }).render(escapedText)
-  }
-  return value;
+  return createMarkdownIt({
+    copyCoder: props.copyCoder,
+    collapse: props.collapse,
+    colorScheme: props.colorScheme,
+  }).render(props.text)
 });
 
-// 校验内容元素是否有效
-const getValidElement = (): HTMLElement | null => {
-  if (!textRef.value) return null;
-  // 确保是 div.markdown-body
-  if (textRef.value.tagName.toLowerCase() !== 'div' ||
-    !textRef.value.classList.contains('markdown-body')) {
-    console.error('导出失败：目标元素不是 div.markdown-body');
-    return null;
-  }
-  return textRef.value;
-};
-
 // 导出PDF的方法（供父组件调用）
-const exportPDF = (filename = 'document.pdf', includeWatermark?: boolean) => {
-  const element = getValidElement();
-  if (!element) return;
-  // 优先使用方法参数，其次使用props默认值
-  const useWatermark = includeWatermark ?? props.exportWithWatermark;
-  exportToPDF(element, filename, useWatermark);
-};
-
-// 处理图片渲染
-const renderImages = () => {
-  if (!textRef.value) return;
-  
-  // 获取所有图片占位符
-  const imageContainers = textRef.value.querySelectorAll('.markdown-image');
-  
-  imageContainers.forEach(container => {
-    const src = container.getAttribute('data-src');
-    const alt = container.getAttribute('data-alt') || '';
-    
-    if (src) {
-      // 创建ImageViewer组件实例
-      const app = createApp(ImageViewer, {src, alt});
-      app.mount(container);
-    }
-  });
-};
+const exportPDF = (filename = 'document.pdf', includeWatermark?: boolean) => exportToPDF(textRef.value, filename, useWatermark);
 
 // 监听颜色模式变化
 watch(
   () => props.colorScheme,
-  (newMode) => document.documentElement.setAttribute("markdown-lite", newMode),
+  async (newMode) => {
+    // 设置 documentElement 的 markdown-lite 属性
+    document.documentElement.setAttribute("markdown-lite", newMode);
+    
+    // 等待 DOM 更新后重新初始化图表、打字效果、图片编辑和表格增强
+    disposeECharts();
+    disposeTyped();
+    await nextTick();
+    await Promise.all([initECharts(), initTyped()]);
+  },
   {immediate: true}
 );
 
-onMounted(() => {
-  renderImages();
+// 监听渲染文本变化，重新初始化图表、打字效果、图片编辑和表格增强
+watch(
+  renderedText,
+  async () => {
+    await nextTick();
+    // 先清理再初始化，确保事件监听器不会重复绑定
+    disposeECharts();
+    disposeTyped();
+    await Promise.all([initECharts(), initTyped()]);
+  },
+  {immediate: true} // 在初始化时也触发，确保首次渲染时有事件绑定
+);
+
+// 组件挂载后初始化图表、打字效果、图片编辑和表格增强
+onMounted(async () => {
+  await nextTick();
+  await Promise.all([initECharts(), initTyped()]);
 });
 
-//setTimeout(() => {
-//  exportPDF()
-//}, 20000);
+// 组件卸载时清理图表、打字效果、图片编辑和表格增强
+onUnmounted(() => {
+  disposeECharts();
+  disposeTyped();
+});
 
-defineExpose({
-  exportPDF
-})
 
+defineExpose({exportPDF})
 </script>
 
-<style lang="less">
-.markdown-container {
-  position: relative;
-}
-
-.markdown-body * {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
-
-
+<style lang="less" scoped>
 </style>

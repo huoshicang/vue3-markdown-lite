@@ -4,7 +4,7 @@ import vueJsx from '@vitejs/plugin-vue-jsx'
 import dts from "vite-plugin-dts";
 import path from "path";
 import { fileURLToPath } from "url";
-
+import tailwindcss from "@tailwindcss/vite";
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
@@ -13,6 +13,7 @@ const isLib = process.env.BUILD_LIB === "true";
 export default defineConfig({
   root: isLib ? "." : "example",
   plugins: [
+    tailwindcss(),
     vue(),
     vueJsx(),
     ...(isLib ? [dts({
@@ -24,6 +25,7 @@ export default defineConfig({
   resolve: {
     alias: {
       "@": path.resolve(__dirname, "src"),
+      'vue': 'vue/dist/vue.esm-bundler.js' // 切换为带编译器的版本
     },
   },
   build: isLib

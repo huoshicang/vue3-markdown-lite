@@ -2,7 +2,12 @@
   "compilerOptions": {
     "jsxImportSource": "vue", // 指定 JSX 导入源为 Vue
     "types": ["vite/client", "vue","node"], // 确保 Vue 类型被识别
-    "include": ["src/**/*.ts", "src/**/*.d.ts", "src/**/*.tsx", "src/**/*.vue"], // 包含 TSX 文件
+    "include": [
+      "src_Archiving/**/*.ts",
+      "src_Archiving/**/*.d.ts",
+      "src_Archiving/**/*.tsx",
+      "src_Archiving/**/*.vue"
+    ], // 包含 TSX 文件
     "target": "ESNext",
     "module": "ESNext",
     "moduleResolution": "Node",
@@ -22,9 +27,9 @@
     "allowSyntheticDefaultImports": true
   },
   "include": [
-    "src/**/*.ts",
-    "src/**/*.d.ts",
-    "src/**/*.vue",
+    "src_Archiving/**/*.ts",
+    "src_Archiving/**/*.d.ts",
+    "src_Archiving/**/*.vue",
     "example/**/*.ts",
     "example/**/*.vue",
     "vite.config.ts"

@@ -1,11 +1,14 @@
 import { App } from "vue";
-import MarkdownViewer from "./MarkdownViewer.vue";
 
+import "@/styles/tailwind.css";
+import "@/styles/github-markdown.less";
+import "@/styles/highlight.less";
 import "katex/dist/katex.min.css";
-import "../assets/styles/lib/tailwind.css";
-import "../assets/styles/lib/github-markdown.less";
-import "../assets/styles/lib/highlight.less";
-import "./styles/CustomCollapse.css"
+
+
+import MarkdownViewer from "./MarkdownViewer.vue";
+import "./template/CodeBlock";
+import "./template/CodeGroup";
 
 export { MarkdownViewer };
 

@@ -10,12 +10,6 @@ export interface MarkdownViewerProps {
   text: string;
 
   /**
-   * 是否按纯文本处理（不解析 Markdown 语法）
-   * @default false
-   */
-  isText?: boolean;
-
-  /**
    * 是否启用代码块复制功能
    * @default true
    */

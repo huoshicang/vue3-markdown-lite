@@ -1,8 +1,10 @@
-import { createApp } from "vue";
+import {createApp} from "vue";
 import App from "./App.vue";
-//import "../assets/styles/global.less"
 
 const app = createApp(App)
+
+
+import './style.css'
 
 
 app.mount('#app')

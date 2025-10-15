@@ -12,7 +12,7 @@
 }
 @font-face {
   font-family: 'MapleMono-NF-CN-ExtraBold';
-  src: url('./MapleMono-NF-CN-ExtraBold.woff2') format('woff2');
+  src: url('MapleMono-NF-CN-ExtraBold.woff2') format('woff2');
   font-weight: bold;
   font-style: normal;
 }
@@ -131,7 +131,7 @@ html[markdown-lite='light'] {
   margin: 0;
   color: var(--fgColor-default);
   background-color: var(--bgColor-default);
-  font-family: 'MapleMono-NF-CN-ExtraBold', sans-serif;
+  //font-family: 'MapleMono-NF-CN-ExtraBold', sans-serif;
   word-wrap: break-word;
 }
 
@@ -162,9 +162,9 @@ html[markdown-lite='light'] {
   display: block;
 }
 
-.markdown-body summary {
-  display: list-item;
-}
+//.markdown-body summary {
+//  display: list-item;
+//}
 
 .markdown-body [hidden] {
   display: none !important;
@@ -196,7 +196,6 @@ html[markdown-lite='light'] {
   font-weight: var(--base-text-weight-semibold, 600);
   padding-bottom: .3em;
   font-size: 2em;
-  border-bottom: 1px solid var(--borderColor-muted);
 }
 
 .markdown-body mark {
@@ -401,7 +400,6 @@ html[markdown-lite='light'] {
   font-weight: var(--base-text-weight-semibold, 600);
   padding-bottom: .3em;
   font-size: 1.5em;
-  border-bottom: 1px solid var(--borderColor-muted);
 }
 
 .markdown-body h3 {
@@ -537,7 +535,7 @@ html[markdown-lite='light'] {
 .markdown-body ol,
 .markdown-body dl,
 .markdown-body table,
-.markdown-body pre,
+//.markdown-body pre,
 .markdown-body details {
   margin-top: 0;
   margin-bottom: var(--base-size-16);
@@ -848,10 +846,6 @@ html[markdown-lite='light'] {
   border: 0;
 }
 
-.markdown-body .highlight {
-  margin-bottom: var(--base-size-16);
-}
-
 .markdown-body .highlight pre {
   margin-bottom: 0;
   word-break: normal;
@@ -859,7 +853,7 @@ html[markdown-lite='light'] {
 
 .markdown-body .highlight pre,
 .markdown-body pre {
-  overflow: auto;
+  //overflow: auto;
   font-size: 85%;
   line-height: 1.45;
   color: var(--fgColor-default);
@@ -1081,7 +1075,7 @@ html[markdown-lite='light'] {
 .markdown-body [role=button]:focus:not(:focus-visible),
 .markdown-body [role=tabpanel][tabindex="0"]:focus:not(:focus-visible),
 .markdown-body button:focus:not(:focus-visible),
-.markdown-body summary:focus:not(:focus-visible),
+//.markdown-body summary:focus:not(:focus-visible),
 .markdown-body a:focus:not(:focus-visible) {
   outline: none;
   box-shadow: none;

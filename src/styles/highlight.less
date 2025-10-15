@@ -1,22 +1,23 @@
 
 html[markdown-lite='dark'] {
-  pre{
-    background-color: var(--bgColor-muted);
-  }
-
+  //pre{
+  //  background-color: var(--bgColor-muted);
+  //}
+  .code-block .code-content pre,
+  .code-block .code-header .header-left .language,
   code{
     font-family: 'MapleMono-NF-CN-ExtraBold', sans-serif;
   }
 
-  pre code {
-    display: block;
-    overflow-x: auto;
-
-    .code-block{
-      background: #282c34;
-    }
-
-  }
+  //pre code {
+  //  display: block;
+  //  overflow-x: auto;
+  //
+  //  .code-block{
+  //    background: #282c34;
+  //  }
+  //
+  //}
 
   .hljs-keyword,
   .hljs-operator,
@@ -120,20 +121,10 @@ html[markdown-lite='dark'] {
 }
 
 html[markdown-lite='light'] {
-  pre {
-    background-color: var(--bgColor-muted);
-  }
+  .code-block .code-content pre,
+  .code-block .code-header .header-left .language,
   code{
     font-family: 'MapleMono-NF-CN-ExtraBold', sans-serif;
-  }
-  pre code {
-    display: block;
-    overflow-x: auto;
-
-    .code-block{
-      background: #e0e0e0;
-    }
-
   }
 
   .hljs-comment,

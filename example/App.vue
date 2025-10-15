@@ -1,133 +1,174 @@
 <template>
-  {{ watermarkConfig }}
-  <MarkdownViewer :text="text" :colorScheme="colorScheme"/>
+  <MarkdownViewer :text="markdownText"/>
 </template>
 <script setup lang="ts">
-import {MarkdownViewer} from "../src";
+
 import {ref} from "vue";
-
-const colorScheme = ref('light')
-
-
-//setTimeout(() => {
-//  colorScheme.value = 'dark'
-//}, 3000)
+import {MarkdownViewer} from "../src";
 
 
-const text = ref(`
-## 什么是 Markdown
 
-\`Markdown\` 是一种方便记忆、书写的纯文本标记语言，用户可以使用这些标记符号，以最小的输入代价，生成极富表现力的文档：譬如您正在阅读的这份文档。它使用简单的符号标记不同的标题，分割不同的段落，**粗体**、*斜体* 或者[超文本链接](https://vue-cli3.lovejade.cn/explore/)，更棒的是，它还可以：
 
----
+const markdownText = ref(`
+目录语法\`[[toc]]\`
+[[toc]]
 
-### 1. 制作待办事宜 \`Todo\` 列表
+# 标题
 
-- [x] 🎉 通常 \`Markdown\` 解析器自带的基本功能；
-- [x] 🍀 支持**流程图**、**甘特图**、**时序图**、**任务列表**；
-- [x] 🏁 支持粘贴 HTML 自动转换为 Markdown；
-- [x] 💃🏻 支持插入原生 Emoji、设置常用表情列表；
-- [x] ✨ 支持**导出**携带样式的 PDF；
+# H1 标题
+## H2 标题
+### H3 标题
+#### H4 标题
+##### H5 标题
+###### H6 标题
 
----
 
-### 2. 书写一个质能守恒公式[^LaTeX]
+# 文本格式化
+**粗体文本**
+*斜体文本*
+***粗体和斜体***
+~~删除线~~
+\`内联代码\`
 
-$$
-E=mc^2
-$$
 
----
+# 列表
+- 无序列表项
+- 另一个项目
+  - 嵌套项目
+  - 另一个嵌套项目
 
-### 3. 高亮一段代码[^code]
+1. 有序列表项
+2. 另一个项目
+   1. 嵌套有序项目
+   2. 另一个嵌套项目
 
-\`\`\`js
-// 给页面里所有的 DOM 元素添加一个 1px 的描边（outline）;
-[].forEach.call($$("*"),function(a){
-  a.style.outline="1px solid #"+(~~(Math.random()*(1<<24))).toString(16);
-})
+
+# 链接和图片
+[Markdown Lang](https://www.markdownlang.com/)
+[带标题的 Markdown Lang](https://www.markdownlang.com/ "Markdown Lang")
+
+![替代文本](image-url.jpg)
+![带标题的图片](image-url.jpg "图片标题")
+
+
+# 代码块
+\`\`\`python
+def loadRequestParams(request_obj):
+    param = {}
+    try:
+        if request_obj.method == 'POST':
+            if 'file' in request.files:
+                pass
+            elif request_obj.form:
+                for k in request_obj.form:
+                    param[k] = request_obj.form.get(k)
+            elif request_obj.json:
+                for k in request_obj.json:
+                    param[k] = request_obj.json.get(k)
+
+        elif request_obj.method == 'GET':
+            if request_obj.args:
+                for k in request_obj.args:
+                    param[k] = request_obj.args.get(k)
+    except Exception as e:
+        traceback.print_exc()
+        print(e)
+    return param
 \`\`\`
 
----
+\`\`\`python
+def hello():
+    print("Hello, World!")
+\`\`\`
 
-### 4. 高效绘制流程图
+# 代码组
+:::code-group
+# 代码块
+\`\`\`javascript
+function hello() {
+  console.log("Hello, World!");
+}
+\`\`\`
 
+\`\`\`python
+def hello():
+    print("Hello, World!")
+\`\`\`
+:::
+
+# 高效绘制流程图
 \`\`\`mermaid
 graph TD
-    A[用户请求] --> B[语义解析]
-    B --> C[RAG检索]
-    
-    C -->|✅ 知识库匹配| D[上下文增强]
-    C -->|❌ 无匹配| E[任务分解]
-    
-    D --> E
-    
-    E --> F{工具选择}
-    
-    F -->|🛠️ 核心工具| G{基础操作}
-    F -->|🔌 MCP扩展服务| H{MCP操作}
-    
-    G -->|✏️ 文件操作| I[读写/替换]
-    G -->|🖥️ 系统命令执行| J[执行命令]
-    G -->|🔍 代码分析| K[代码分析]
-    
-    H -->|⚙️ 使用MCP工具| L[使用MCP工具]
-    H -->|📦 访问MCP资源| M[访问MCP资源]
-    
-    I --> N[结果验证]
-    J --> N
-    K --> N
-    L --> N
-    M --> N
-    
-    N --> O{完成判断}
-    
-    O -->|✅| P[提交最终结果]
-    O -->|❌| E
+A[用户请求] --> B[语义解析]
+B --> C[RAG检索]
+
+C -->|✅ 知识库匹配| D[上下文增强]
+C -->|❌ 无匹配| E[任务分解]
+
+D --> E
+
+E --> F{工具选择}
+
+F -->|🛠️ 核心工具| G{基础操作}
+F -->|🔌 MCP扩展服务| H{MCP操作}
+
+G -->|✏️ 文件操作| I[读写/替换]
+G -->|🖥️ 系统命令执行| J[执行命令]
+G -->|🔍 代码分析| K[代码分析]
+
+H -->|⚙️ 使用MCP工具| L[使用MCP工具]
+H -->|📦 访问MCP资源| M[访问MCP资源]
+
+I --> N[结果验证]
+J --> N
+K --> N
+L --> N
+M --> N
+
+N --> O{完成判断}
+
+O -->|✅| P[提交最终结果]
+O -->|❌| E
 \`\`\`
 
----
 
-### 5. 高效绘制序列图
+# 高效绘制序列图
 
 \`\`\`mermaid
 sequenceDiagram
-  participant Alice
-  participant Bob
-  Alice->John: Hello John, how are you?
+participant Alice
+participant Bob
+Alice->John: Hello John, how are you?
   loop Healthcheck
-      John->John: Fight against hypochondria
-  end
-  Note right of John: Rational thoughts <br/>prevail...
-  John-->Alice: Great!
-  John->Bob: How about you?
+John->John: Fight against hypochondria
+end
+Note right of John: Rational thoughts <br/>prevail...
+John-->Alice: Great!
+John->Bob: How about you?
   Bob-->John: Jolly good!
 \`\`\`
 
----
 
-### 6. 高效绘制甘特图
-
-> **甘特图**内在思想简单。基本是一条线条图，横轴表示时间，纵轴表示活动（项目），线条表示在整个期间上计划和实际的活动完成情况。它直观地表明任务计划在什么时候进行，及实际进展与计划要求的对比。
+# 高效绘制甘特图
 
 \`\`\`mermaid
 gantt
-  title 项目开发流程
-  section 项目确定
-    需求分析       :a1, 2019-06-22, 3d
-    可行性报告     :after a1, 5d
-    概念验证       : 5d
-  section 项目实施
-    概要设计      :2019-07-05  , 5d
-    详细设计      :2019-07-08, 10d
-    编码          :2019-07-15, 10d
-    测试          :2019-07-22, 5d
-  section 发布验收
-    发布: 2d
-    验收: 3d
+title 项目开发流程
+section 项目确定
+需求分析       :a1, 2019-06-22, 3d
+可行性报告     :after a1, 5d
+概念验证       : 5d
+section 项目实施
+概要设计      :2019-07-05  , 5d
+详细设计      :2019-07-08, 10d
+编码          :2019-07-15, 10d
+测试          :2019-07-22, 5d
+section 发布验收
+发布: 2d
+验收: 3d
 \`\`\`
 
-### 7. 支持图表
+# 支持图表
 
 \`\`\`echarts
 {
@@ -204,27 +245,154 @@ gantt
 }
 \`\`\`
 
-> **备注**：上述 echarts 图表📈，其数据，须使用严格的 **JSON** 格式；您可使用 JSON.stringify(data)，将对象传换从而得标准数据，即可正常使用。
+# 使用Typed.js的打字效果
 
+\`\`\`json
+{
+  "strings": [
+    "# 欢迎来到我的世界。",
+    "我是一名前端开发者。",
+    "也热爱设计与创造。"
+  ],
+  "typeSpeed": 50,
+  "backSpeed": 30,
+  "loop": true
+}
+\`\`\`
+
+==
+{
+  "strings": [
+    "# 欢迎来到我的世界。",
+    "我是一名前端开发者。",
+    "也热爱设计与创造。"
+  ],
+  "typeSpeed": 50,
+  "backSpeed": 30,
+  "loop": true
+}
+==
+
+
+# 表格
+| 列 1 | 列 2 | 列 3 |
+|------|------|------|
+| 行 1 | 数据 1 | 数据 2 |
+| 行 2 | 数据 3 | 数据 4 |
+
+
+# 引用块
+> 这是一个引用块。
+> 它可以包含多行文本。
+> 引用块通常用于引用其他来源的内容。
+
+
+# 分割线
 ---
 
-### 8. 绘制表格
+***
 
-| 时间        | 吃什么   |
-| :--------  | :-----  |
-| 早上 | 米饭|
-| 中午 | 米饭 |
-| 晚上 | 米饭|
-| 夜宵 | 米饭 |
-| 还吃米饭 ！？ |
 
----
+# 缩略
+*[HTML]: Hyper Text Markup Language
+*[W3C]: World Wide Web Consortium
 
-### 9. 更详细语法说明
+The HTML specificationis maintained by the W3C.
 
-想要查看更详细的语法说明，可以参考这份 [Markdown 资源列表](https://github.com/nicejade/nice-front-end-tutorial/blob/master/tutorial/markdown-tutorial.md)，涵盖入门至进阶教程，以及资源、平台等信息，能让您对她有更深的认知。
 
-总而言之，不同于其它**所见即所得**的编辑器：你只需使用键盘专注于书写文本内容，就可以生成印刷级的排版格式，省却在键盘和工具栏之间来回切换，调整内容和格式的麻烦。**Markdown 在流畅的书写和印刷级的阅读体验之间找到了平衡。** 目前它已经成为世界上最大的技术分享网站 \`GitHub\` 和 技术问答网站 \`StackOverFlow\` 的御用书写格式，而且越发流行，正在在向各行业渗透。
-`)
+# 警告块
+语法：
+\`\`\`
+> [!warning]
+> 警告文字
+\`\`\`
+
+> [!warning]
+> 警告文字
+
+
+# 对齐
+语法：
+\`\`\`
+::: center
+居中的内容
+:::
+\`\`\`
+
+::: center
+居中的内容
+:::
+
+
+# 带有标题的图片
+语法：
+\`\`\`
+![Logo](/favicon.ico)
+
+[![Logo](/favicon.ico)](https://mdit-plugins.github.io/logo.svg)
+
+![Logo](/favicon.ico "Markdown")
+
+[![Logo](/favicon.ico "Markdown")](https://mdit-plugins.github.io/logo.svg)
+\`\`\`
+
+![Logo](/favicon.ico)
+
+[![Logo](/favicon.ico)](https://mdit-plugins.github.io/logo.svg)
+
+![Logo](/favicon.ico "Markdown")
+
+[![Logo](/favicon.ico "Markdown")](https://mdit-plugins.github.io/logo.svg)
+
+
+# 设置图片尺寸
+语法：
+\`\`\`
+![替代文字|200x200](https://mdit-plugins.github.io/logo.svg)
+\`\`\`
+
+![替代文字|200x200](https://mdit-plugins.github.io/logo.svg)
+
+
+# 数学表达式
+语法：\`$E=mc^2$\`
+
+$E=mc^2$
+
+还可以居中显示数学表达式
+::: center
+$E=mc^2$
+:::
+
+
+# 标记和突出显示内
+语法：\`==标记==\`
+
+==标记==
+
+
+# 隐藏内容
+语法：\`!!标记!!\`
+
+!!标记!!
+
+
+# 上标 下标
+语法：\`~下标~ ^上标^\`
+
+~下标~ ^上标^
+
+
+# 任务
+语法：\`- [ ] 没好\`
+\`- [x] 好了\`
+
+- [ ] 没好
+- [x] 好了
+
+`);
 
 </script>
+<style>
+
+</style>
