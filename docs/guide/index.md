@@ -1,170 +1,162 @@
-# 指南
+# 使用指南
 
-### 安装与引入
+## 安装步骤
 
-#### 1. 安装依赖
+### 环境要求
+- Node.js 版本 ≥ 14.0.0（兼容 Vue3 项目最低 Node 版本）
+- Vue 版本 ≥ 3.0.0
+
+### 安装命令
+支持 npm、yarn、pnpm 安装：
 
 ```bash
-npm install vue3-markdown-lite
+# npm
+npm install vue3-markdown-lite --save
+
+# yarn
+yarn add vue3-markdown-lite
+
+# pnpm
+pnpm add vue3-markdown-lite
 ```
 
-#### 2. 全局注册（推荐）
 
-在 VitePress 或 Vue 项目的入口文件中注册组件：
+## 快速开始
 
-```javascript
-// .vitepress/theme/index.ts 或 main.ts
-import { createApp } from 'vue'
-import App from './App.vue'
-import MarkdownViewer from 'vue3-markdown-lite' // 替换为实际组件路径
-
-const app = createApp(App)
-app.use(MarkdownViewer) // 全局注册
-app.mount('#app')
-```
-
-#### 3. 局部引入
-
-在需要使用的组件中单独引入：
+以下是最简单的使用示例，实现 Markdown 文本的基础渲染：
 
 ```vue
 <template>
-  <MarkdownViewer text="# 局部引入示例" />
+  <!-- 引入组件并绑定 Markdown 文本 -->
+  <MarkdownViewer :text="mdContent" />
 </template>
 
-<script setup>
-import { MarkdownViewer } from 'vue3-markdown-lite'
+<script setup lang="ts">
+import { MarkdownViewer } from "vue3-markdown-lite";
+import { ref } from "vue";
+
+// 定义需要渲染的 Markdown 内容
+const mdContent = ref(`
+# 欢迎使用 vue3-markdown-lite
+
+这是一个 **轻量级** 的 Vue3 Markdown 渲染组件。
+
+## 特性
+- 支持基础语法
+- 代码高亮
+- 数学公式
+
+\`\`\`javascript
+console.log("Hello, Markdown!");
+\`\`\`
+`);
 </script>
 ```
 
-### 基础用法
+**运行效果**：页面将按 Markdown 语法规则渲染内容，包括标题层级、粗体文本、列表及带语法高亮的代码块。
 
-#### 渲染简单 Markdown 文本
 
+## 核心功能详解
+
+### 1. 代码高亮与复制功能
+组件默认支持代码块语法高亮（基于 highlight.js）及一键复制功能，无需额外配置。
+
+**使用示例**：
 ```vue
 <template>
   <MarkdownViewer 
-    text="# 标题一级\n## 标题二级\n- 列表项1\n- 列表项2\n**加粗文本**" 
+    :text="codeExample" 
+    :copyCoder="true"  <!-- 启用复制功能（默认开启） -->
   />
 </template>
+
+<script setup lang="ts">
+import { MarkdownViewer } from "vue3-markdown-lite";
+import { ref } from "vue";
+
+const codeExample = ref(`
+\`\`\`python
+# Python 代码示例
+def add(a, b):
+    return a + b
+
+print(add(1, 2))  # 输出：3
+\`\`\`
+`);
+</script>
 ```
 
-#### 纯文本展示（不解析语法）
+**适用场景**：技术文档、代码教程等需要展示代码并支持读者复制的场景。
 
-```vue
-<template>
-  <MarkdownViewer 
-    text="# 这是纯文本，不会被解析为标题" 
-    :isText="true" 
-  />
-</template>
-```
+**实现逻辑**：组件通过 `highlight.js` 解析代码块语言并添加高亮样式，同时为每个代码块添加复制按钮（点击触发 `navigator.clipboard.writeText` 实现复制）。
 
-### 代码块高级配置
 
-#### 完整代码块功能演示
+### 2. 数学公式渲染（基于 KaTeX）
+通过配置可启用数学公式渲染，支持 inline 公式（`$...$`）和块级公式（`$$...$$`）。
 
-```vue
-<template>
-  <MarkdownViewer 
-    text="```javascript
-function greeting(name) {
-  return `Hello, ${name}!`;
-}
-console.log(greeting('Markdown'));
-```"
-    :copyCoder="true"  // 启用复制
-    :collapse="true" // 允许折叠
-  />
-</template>
-```
+**使用步骤**：
+1. 安装 KaTeX 依赖（组件按需加载，需手动安装）：
+   ```bash
+   npm install katex --save
+   ```
 
-#### 禁用代码块交互功能
+2. 在组件中启用公式渲染：
+   ```vue
+   <template>
+     <MarkdownViewer :text="mathExample" />
+   </template>
 
-```vue
-<template>
-  <MarkdownViewer 
-    text="```python
-print('无交互功能的代码块')
-```"
-    :copyCoder="false"
-    :collapse="false"
-  />
-</template>
-```
+   <script setup lang="ts">
+   import { MarkdownViewer } from "vue3-markdown-lite";
+   import { ref } from "vue";
 
-### 主题与布局
-#### 响应式布局适配
+   const mathExample = ref(`
+   # 数学公式示例
 
-组件会自动适配移动端与桌面端，无需额外配置：
+   Inline 公式：$E=mc^2$
 
-```vue
-<template>
-  <MarkdownViewer 
-    text="### 响应式布局\n在手机和电脑上会自动调整内边距" 
-  />
-</template>
-```
+   块级公式：
+   $$
+   \sum_{i=1}^n i = \frac{n(n+1)}{2}
+   $$
+   `);
+   </script>
+   ```
 
-### 扩展语法支持
+**适用场景**：学术文档、数学教程等需要展示公式的场景。
 
-#### 数学公式渲染
 
-```vue
-<template>
-  <MarkdownViewer 
-    text="### 数学公式示例
-行内公式：$a^2 + b^2 = c^2$
+### 3. 图表渲染（基于 Mermaid）
+支持通过 Mermaid 语法渲染流程图、时序图等图表。
 
-块级公式：
-$$\int_{a}^{b} f(x) dx = F(b) - F(a)$$"
-  />
-</template>
-```
+**使用步骤**：
+1. 安装 Mermaid 依赖：
+   ```bash
+   npm install mermaid --save
+   ```
 
-#### 图表渲染（Mermaid）
+2. 渲染图表示例：
+   ```vue
+   <template>
+     <MarkdownViewer :text="mermaidExample" />
+   </template>
 
-```vue
-<template>
-  <MarkdownViewer 
-    text="```mermaid
-sequenceDiagram
-  Alice->>Bob: Hello Bob, how are you?
-  Bob-->>Alice: I'm good, thanks!
-```"
-  />
-</template>
-```
+   <script setup lang="ts">
+   import { MarkdownViewer } from "vue3-markdown-lite";
+   import { ref } from "vue";
 
-## 内部工具函数说明
+   const mermaidExample = ref(`
+   # 流程图示例
 
-### 文本处理工具（`markdown-utils.ts`）
+   \`\`\`mermaid
+   graph TD
+     A[开始] --> B[安装组件]
+     B --> C[引入组件]
+     C --> D[渲染成功]
+     D --> E[结束]
+   \`\`\`
+   `);
+   </script>
+   ```
 
-#### `escapeDollarNumber(text: string): string`
-- 功能：转义数字前的 `$` 符号，避免与公式语法冲突
-- 示例：将 `$123` 转换为 `\$123`
-
-#### `escapeBrackets(text: string): string`
-- 功能：将 LaTeX 风格的公式括号（`\[ \]` 和 `\( \)`）转换为 Markdown 公式语法（`$$ $$` 和 `$ $`）
-- 注意：会跳过代码块内的内容，避免误处理
-
-### 代码块工具（`code-block-utils.ts`）
-
-#### `highlightBlock(highlightedCode: string, lang: string, props: MarkdownViewerProps): string`
-- 功能：生成带样式的代码块 HTML，包含行号、复制按钮、折叠按钮等元素
-- 参数：
-    - `highlightedCode`：高亮后的代码字符串
-    - `lang`：代码语言
-    - `props`：组件属性配置
-
-### 渲染工具（`markdown-renderer.ts`）
-
-#### `renderMarkdown(text: string, props: MarkdownViewerProps): string`
-- 功能：将 Markdown 文本渲染为 HTML
-- 特性：通过缓存 `markdown-it` 实例提高渲染性能
-
-### 交互工具（`useCodeBlock.ts`）
-
-#### `useCodeBlock(textRef: Ref<HTMLElement | undefined>, props: MarkdownViewerProps)`
-- 功能：处理代码块的交互逻辑（复制、折叠）
-- 生命周期：在组件挂载、更新时自动绑定/解绑事件监听
+**适用场景**：系统设计文档、流程说明等需要可视化图表的场景。
