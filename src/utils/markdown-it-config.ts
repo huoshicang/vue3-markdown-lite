@@ -7,7 +7,7 @@ import {MarkdownViewerProps} from "@/types";
 import {highlightBlock} from "@/utils/code-block-utils";
 
 export function createMarkdownIt(props: MarkdownViewerProps) {
-  return new MarkdownIt({
+  const md = new MarkdownIt({
     html: false,
     linkify: true,
     highlight(code, language) {
@@ -24,8 +24,21 @@ export function createMarkdownIt(props: MarkdownViewerProps) {
       }
       return highlightBlock(hljs.highlightAuto(code).value, "", props);
     },
-  })
-    .use(MdLinkAttributes, {attrs: {target: "_blank", rel: "noopener"}})
+  }).use(MdLinkAttributes, {attrs: {target: "_blank", rel: "noopener"}})
     .use(MdKatex)
     .use(MdMermaid)
+
+  // 重写图片渲染规则
+  md.renderer.rules.image = function(tokens, idx, options, env, self) {
+    const token = tokens[idx];
+    const src = token.attrGet('src');
+    const alt = token.content || '';
+
+    // 返回自定义图片组件的占位符标记
+    // 实际渲染将在Vue组件中处理
+    return `<div class="markdown-image" data-src="${src}" data-alt="${alt}"></div>`;
+  };
+
+  return md;
+
 }

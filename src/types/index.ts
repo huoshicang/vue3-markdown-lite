@@ -45,4 +45,36 @@ export interface MarkdownViewerProps {
    * @default undefined
    */
   colorScheme?: 'dark' | 'light';
+
+  /**
+   * 水印配置
+   * @default { text: 'vue3-markdown-lite' }
+   */
+  watermark?: {
+    /**
+     * 水印文本内容
+     * @default ''
+     */
+    text?: string;
+    /**
+     * 水印颜色
+     * @default 'rgba(180, 180, 180, 0.3)'
+     */
+    color?: string;
+    /**
+     * 水印字体大小
+     * @default '16px'
+     */
+    fontSize?: string;
+    /**
+     * 水印旋转角度
+     * @default -20
+     */
+    rotate?: number;
+    /**
+     * 水印密度（间距）
+     * @default 50
+     */
+    density?: number;
+  };
 }
