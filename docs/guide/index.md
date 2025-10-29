@@ -2,9 +2,10 @@
 
 ## 安装步骤
 
-### 环境要求
-- Node.js 版本 ≥ 14.0.0（兼容 Vue3 项目最低 Node 版本）
-- Vue 版本 ≥ 3.0.0
+### 开发环境
+- Node.js 版本 = v22.7.0
+- Vue 版本 = 3.5.22
+- npm 版本 = 10.9.2
 
 ### 安装命令
 支持 npm、yarn、pnpm 安装：
@@ -95,12 +96,7 @@ print(add(1, 2))  # 输出：3
 通过配置可启用数学公式渲染，支持 inline 公式（`$...$`）和块级公式（`$$...$$`）。
 
 **使用步骤**：
-1. 安装 KaTeX 依赖（组件按需加载，需手动安装）：
-   ```bash
-   npm install katex --save
-   ```
-
-2. 在组件中启用公式渲染：
+1. 在组件中启用公式渲染：
    ```vue
    <template>
      <MarkdownViewer :text="mathExample" />
@@ -130,12 +126,7 @@ print(add(1, 2))  # 输出：3
 支持通过 Mermaid 语法渲染流程图、时序图等图表。
 
 **使用步骤**：
-1. 安装 Mermaid 依赖：
-   ```bash
-   npm install mermaid --save
-   ```
-
-2. 渲染图表示例：
+1. 渲染图表示例：
    ```vue
    <template>
      <MarkdownViewer :text="mermaidExample" />

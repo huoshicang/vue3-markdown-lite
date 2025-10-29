@@ -15,11 +15,6 @@ export interface MarkdownViewerProps {
    */
   copyCoder?: boolean;
 
-  /**
-   * 是否显示代码块行号
-   * @default true
-   */
-  coderNumber?: boolean;
 
   /**
    * 是否允许代码块折叠/展开
@@ -27,11 +22,6 @@ export interface MarkdownViewerProps {
    */
   collapse?: boolean;
 
-  /**
-   * 代码块是否自动换行
-   * @default false
-   */
-  wrapCode?: boolean;
 
   /**
    * 是否启用暗黑模式（会覆盖系统主题检测）
