@@ -14,14 +14,4 @@ navbar: true    # 显示导航栏（默认）
 
 
 # 示例
-
-<script setup>
-import {MarkdownViewer} from "@"; 
-import {ref} from "vue"; 
-const typedExample = ref(`
-- [ ] 没好
-- [x] 好了
-`)
-</script>
-
-<MarkdownViewer :text="typedExample" />
+![todo](/todo.png)

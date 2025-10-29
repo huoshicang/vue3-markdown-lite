@@ -13,18 +13,4 @@ $E=mc^2$
 
 
 # 示例
-
-<script setup>
-import {MarkdownViewer} from "@"; 
-import {ref} from "vue"; 
-const typedExample = ref(`
-$E=mc^2$
-
-还可以居中显示数学表达式
-::: center
-$E=mc^2$
-:::
-`)
-</script>
-
-<MarkdownViewer :text="typedExample" />
+![math](/math.png)

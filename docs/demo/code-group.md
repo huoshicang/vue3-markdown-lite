@@ -27,25 +27,4 @@ def hello():
 
 
 # 示例
-
-<script setup>
-import {MarkdownViewer} from "@"; 
-import {ref} from "vue"; 
-const typedExample = ref(`
-:::code-group
-# 代码块
-\`\`\`javascript
-function hello() {
-  console.log("Hello, World!");
-}
-\`\`\`
-
-\`\`\`python
-def hello():
-    print("Hello, World!")
-\`\`\`
-:::
-`)
-</script>
-
-<MarkdownViewer :text="typedExample" />
+![code-group](/code-group.gif)

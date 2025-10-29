@@ -17,16 +17,4 @@ def hello():
 
 
 # 示例
-
-<script setup>
-import {MarkdownViewer} from "@"; 
-import {ref} from "vue"; 
-const typedExample = ref(`
-\`\`\`python
-def hello():
-    print("Hello, World!")
-\`\`\`
-`)
-</script>
-
-<MarkdownViewer :text="typedExample" />
+![code-block](/code-block.gif)

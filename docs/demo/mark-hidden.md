@@ -16,15 +16,4 @@ navbar: true    # 显示导航栏（默认）
 
 
 # 示例
-
-<script setup>
-import {MarkdownViewer} from "@"; 
-import {ref} from "vue"; 
-const typedExample = ref(`
-==标记==
-
-!!隐藏内容!!
-`)
-</script>
-
-<MarkdownViewer :text="typedExample" />
+![mark-hidden](/mark-hidden.png)

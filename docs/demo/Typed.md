@@ -26,24 +26,4 @@ navbar: true    # 显示导航栏（默认）
 
 
 # 示例
-
-<script setup>
-import {MarkdownViewer} from "@"; 
-import {ref} from "vue"; 
-const typedExample = ref(`
-==
-{
-  "strings": [
-    "# 欢迎来到我的世界。",
-    "我是一名前端开发者。",
-    "也热爱设计与创造。"
-  ],
-  "typeSpeed": 50,
-  "backSpeed": 30,
-  "loop": true
-}
-==
-`)
-</script>
-
-<MarkdownViewer :text="typedExample" />
+![Typed](/Typed.gif)

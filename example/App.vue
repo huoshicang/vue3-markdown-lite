@@ -319,7 +319,13 @@ The HTML specificationis maintained by the W3C.
 :::
 \`\`\`
 
+::: left
+居中的内容
+:::
 ::: center
+居中的内容
+:::
+::: right
 居中的内容
 :::
 

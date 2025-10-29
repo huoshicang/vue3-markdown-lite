@@ -8,6 +8,10 @@ export default defineConfig({
   description: "轻量级 Vue3 Markdown 展示组件",
   base: isProd ? '/vue3-markdown-lite/' : '/',
   vite: {
+    ssr: {
+      noExternal: true,
+      target: 'webworker' // 强制使用Web Worker环境而不是Node.js
+    },
     resolve: {
       alias: {
         // 关键：将 `@` 别名指向项目根目录下的 `src` 目录

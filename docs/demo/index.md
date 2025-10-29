@@ -4,12 +4,6 @@ hello: world
 
 # 基础示例
 
-<script setup>
-import {MarkdownViewer} from "@"; 
-import {ref} from "vue"; 
-const typedExample = ref(`
-# 标题
-
 # H1 标题
 ## H2 标题
 ### H3 标题
@@ -36,11 +30,6 @@ const typedExample = ref(`
 2. 另一个项目
    1. 嵌套有序项目
    2. 另一个嵌套项目
-
-`)
-</script>
-
-<MarkdownViewer :text="typedExample" />
 
 
 # 目录

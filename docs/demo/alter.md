@@ -26,20 +26,4 @@ navbar: true    # 显示导航栏（默认）
 
 
 # 示例
-
-<script setup>
-import {MarkdownViewer} from "@"; 
-import {ref} from "vue"; 
-const typedExample = ref(`
-> [!warning]
-> 警告文字
->
-> > [!warning]
-> > 嵌套警告文字
-
-- > [!warning]
-  > 警告文字
-`)
-</script>
-
-<MarkdownViewer :text="typedExample" />
+![alert](/alert.png)

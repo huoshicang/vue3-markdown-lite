@@ -12,13 +12,4 @@ navbar: true    # 显示导航栏（默认）
 
 
 # 示例
-
-<script setup>
-import {MarkdownViewer} from "@"; 
-import {ref} from "vue"; 
-const typedExample = ref(`
-~下标~ ^上标^
-`)
-</script>
-
-<MarkdownViewer :text="typedExample" />
+![sup-sub](/sup-sub.png)
