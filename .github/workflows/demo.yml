@@ -6,25 +6,22 @@ on:
     branches: [ "main" ]
 
 jobs:
-  build-and-deploy:
-    # 运行环境：Ubuntu 最新版
-    runs-on: ubuntu-latest
-    # 部署 GitHub Pages 需要的权限
+  deploy:
+    runs-on: ubuntu-latest  # 使用最新的 Ubuntu 环境
     permissions:
-      contents: read
-      pages: write
-      id-token: write
-
+      contents: write  # 允许写入仓库内容（包括推送分支）
     steps:
-      # 1. 拉取代码到 CI 环境
-      - name: Checkout code
+      # 1. 检出代码仓库
+      - name: 检出代码
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 0  # 拉取完整历史，避免构建时出现 Git 信息缺失
 
-      # 2. 设置 Node.js 环境（Vite 需要 Node 支持）
-      - name: Set up Node.js
+      # 2. 设置 Node.js 环境（VitePress 需要 Node.js 18+）
+      - name: 设置 Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: 22.x  # 推荐使用 Node 18+
+          node-version: 22  # 推荐使用 Node.js 18 及以上
           cache: 'npm'  # 缓存 npm 依赖，加速安装
 
       # 3. 安装项目依赖
