@@ -8,8 +8,8 @@ import {MarkdownViewerProps} from "@/types";
 import {createMarkdownIt} from "@/utils/markdown-it-config.ts";
 import {exportToPDF} from "@/utils/export-PDF.ts";
 import watermark from '@/utils/watermark';
-import {useECharts} from "@/template/useECharts.ts";
-import {useTyped} from "@/template/useTyped.ts";
+import {useECharts} from "@/template/UseECharts";
+import {useTyped} from "@/template/useTyped";
 
 defineOptions({name: 'MarkdownViewer'})
 
