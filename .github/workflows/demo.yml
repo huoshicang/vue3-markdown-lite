@@ -34,18 +34,10 @@ jobs:
       # 4. 打包 Vite 项目（关键步骤）
       - name: Build Vite app
         run: npm run build  # 确保 package.json 中有 "build": "vite build" 脚本
-        # 可选：如果构建需要环境变量，可添加 env 配置
-        # env:
-        #   VITE_API_URL: ${{ secrets.API_URL }}  # 从 GitHub Secrets 读取
-
-      # 5. 部署到 GitHub Pages（如果部署到其他平台，替换此步骤）
-      - name: Deploy to GitHub Pages
-        if: github.event_name == 'push' && github.ref == 'refs/heads/main'  # 仅在推送到 main 时部署
-        uses: actions/deploy-pages@v4
-
-      # （补充）上传打包产物为 Artifact（供部署步骤使用）
-      - name: Upload build artifacts
-        if: github.event_name == 'push' && github.ref == 'refs/heads/main'
-        uses: actions/upload-pages-artifact@v3
+      # 5. 部署到 GitHub Pages
+      - name: 部署到 GitHub Pages
+        uses: peaceiris/actions-gh-pages@v4  # 成熟的 GitHub Pages 部署工具
         with:
-          path: './example/dist'  # Vite 打包输出目录（默认是 dist，根据你的配置修改）
+          github_token: ${{ secrets.GITHUB_TOKEN }}  # 自动生成的 GitHub 令牌（无需手动配置）
+          publish_dir: ./example/dist  # VitePress 构建输出目录（默认路径）
+          force_orphan: true  # 强制创建孤立分支（避免历史提交过大）
