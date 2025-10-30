@@ -44,7 +44,7 @@ jobs:
         uses: actions/deploy-pages@v4
         with:
           # Vite 打包后的默认目录是 dist（如果你的输出目录不同，需修改）
-          artifact_name: example/dist  # 对应下方上传的产物名称
+          artifact_name: dist  # 对应下方上传的产物名称
 
       # （补充）上传打包产物为 Artifact（供部署步骤使用）
       - name: Upload build artifacts
