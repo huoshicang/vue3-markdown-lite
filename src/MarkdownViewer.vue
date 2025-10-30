@@ -5,11 +5,11 @@
 <script lang="ts" setup>
 import {computed, watch, defineProps, nextTick, ref, onMounted, onUnmounted} from "vue";
 import {MarkdownViewerProps} from "@/types";
-import {createMarkdownIt} from "@/utils/markdown-it-config";
-import {exportToPDF} from "@/utils/export-PDF";
+import {createMarkdownIt} from "@/utils/markdown-it-config.ts";
+import {exportToPDF} from "@/utils/export-PDF.ts";
 import watermark from '@/utils/watermark';
-import {useECharts} from "@/template/useECharts";
-import {useTyped} from "@/template/useTyped";
+import {useECharts} from "@/template/useECharts.ts";
+import {useTyped} from "@/template/useTyped.ts";
 
 defineOptions({name: 'MarkdownViewer'})
 
