@@ -8,8 +8,8 @@ import "@mdit/plugin-alert/style";
 
 
 import MarkdownViewer from "./MarkdownViewer.vue";
-import "./template/CodeBlock.ts";
-import "./template/CodeGroup.ts";
+import "@/template/codeBlock";
+import "@/template/codeBlock";
 
 export { MarkdownViewer };
 
