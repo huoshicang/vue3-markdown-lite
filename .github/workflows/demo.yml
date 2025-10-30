@@ -1,0 +1,54 @@
+name: Build and Deploy Vite App
+
+# 触发条件：推送到 main 分支时执行
+on:
+  push:
+    branches: [ "main" ]
+
+jobs:
+  build-and-deploy:
+    # 运行环境：Ubuntu 最新版
+    runs-on: ubuntu-latest
+    # 部署 GitHub Pages 需要的权限
+    permissions:
+      contents: read
+      pages: write
+      id-token: write
+
+    steps:
+      # 1. 拉取代码到 CI 环境
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      # 2. 设置 Node.js 环境（Vite 需要 Node 支持）
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22.x  # 推荐使用 Node 18+
+          cache: 'npm'  # 缓存 npm 依赖，加速安装
+
+      # 3. 安装项目依赖
+      - name: Install dependencies
+        run: npm ci  # 比 npm install 更严格，优先使用 package-lock.json
+
+      # 4. 打包 Vite 项目（关键步骤）
+      - name: Build Vite app
+        run: npm run build  # 确保 package.json 中有 "build": "vite build" 脚本
+        # 可选：如果构建需要环境变量，可添加 env 配置
+        # env:
+        #   VITE_API_URL: ${{ secrets.API_URL }}  # 从 GitHub Secrets 读取
+
+      # 5. 部署到 GitHub Pages（如果部署到其他平台，替换此步骤）
+      - name: Deploy to GitHub Pages
+        if: github.event_name == 'push' && github.ref == 'refs/heads/main'  # 仅在推送到 main 时部署
+        uses: actions/deploy-pages@v4
+        with:
+          # Vite 打包后的默认目录是 dist（如果你的输出目录不同，需修改）
+          artifact_name: example/dist  # 对应下方上传的产物名称
+
+      # （补充）上传打包产物为 Artifact（供部署步骤使用）
+      - name: Upload build artifacts
+        if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: './example/dist'  # Vite 打包输出目录（默认是 dist，根据你的配置修改）
